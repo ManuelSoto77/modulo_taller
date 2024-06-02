@@ -9,36 +9,6 @@
 <body>
     <div id="form-container">
 
-    <?php
-
-function generarFolio($conexion) {
-    // Obtener el máximo valor de id_folio
-    $ultimoFolio = mysqli_query($conexion, "SELECT MAX(id_folio) AS ultimo_folio FROM orden_servicio");
-    $ultimoFolio = mysqli_fetch_assoc($ultimoFolio);
-    $ultimoFolio = $ultimoFolio['ultimo_folio'];
-
-    // Generar el nuevo folio
-    $fecha = date('Ymd');
-    $nuevoFolio = $fecha. str_pad($ultimoFolio + 1, 4, '0', STR_PAD_LEFT);
-
-    return $nuevoFolio;
-}
-
-// Establecer la conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "modulo_taller");
-
-if (!$conexion) {
-    die("Error de conexión: ". mysqli_connect_error());
-}
-
-// Generar el folio
-$folio = generarFolio($conexion);
-
-// Cerrar la conexión a la base de datos
-mysqli_close($conexion);
-
-?>
-
 <form id="formulario-parte1" action="guardar_parte1.php" method="post">
     <input type="hidden" name="folio" value="<?php echo $folio;?>" readonly>
             <fieldset>
